@@ -2,6 +2,9 @@
    CAMPUSGUARD MAIN SCRIPT (CLEAN + UPDATED)
    ========================================================= */
 
+// ✅ ADD THIS (VERY IMPORTANT)
+const BASE_URL = "https://55e72364-cab3-4738-baa7-5890a2f8cac3-00-tynd123jbysc.pike.replit.dev";
+
 /* ---------------- LOST & FOUND ---------------- */
 async function findLostItem(event, btn) {
   event.preventDefault();
@@ -25,13 +28,10 @@ async function findLostItem(event, btn) {
   btn.disabled = true;
 
   try {
-    const response = await fetch(
-      "https://55e72364-cab3-4738-baa7-5890a2f8cac3-00-tynd123jibysc.pike.replit.dev/lost-found/analyze",
-      {
-        method: "POST",
-        body: formData
-      }
-    );
+    const response = await fetch(`${BASE_URL}/lost-found/analyze`, {
+      method: "POST",
+      body: formData
+    });
 
     const data = await response.json();
 
@@ -56,7 +56,7 @@ The object was not detected in the given CCTV footage.`;
 }
 
 
-/* ---------------- VIOLENCE & ABUSE (PLACEHOLDER) ---------------- */
+/* ---------------- VIOLENCE ---------------- */
 function detectViolence() {
   const fileInput = document.getElementById("violenceVideo");
   const result = document.getElementById("violenceResult");
@@ -71,7 +71,7 @@ function detectViolence() {
 
   result.innerHTML = "⏳ <b>Analyzing video...</b>";
 
-  fetch("https://55e72364-cab3-4738-baa7-5890a2f8cac3-00-tynd123jibysc.pike.replit.dev/violence/predict", {
+  fetch(`${BASE_URL}/violence/predict`, {
     method: "POST",
     body: formData
   })
@@ -83,24 +83,18 @@ function detectViolence() {
         return;
       }
 
-      // 🚨 VIOLENCE DETECTED
       if (data.result === "Violence Detected") {
         result.innerHTML = `
 🚨 <b style="color:red;">VIOLENCE DETECTED</b><br>
 Camera ID : ${data.camera}<br>
 Room No   : ${data.room}<br>
-Confidence: ${data.confidence}
-`;
-      }
-
-      // ✅ NO VIOLENCE
-      else {
+Confidence: ${data.confidence}`;
+      } else {
         result.innerHTML = `
 ✅ <b style="color:green;">NO VIOLENCE</b><br>
 Camera ID : ${data.camera}<br>
 Room No   : ${data.room}<br>
-Confidence: ${data.confidence}
-`;
+Confidence: ${data.confidence}`;
       }
 
     })
@@ -111,13 +105,12 @@ Confidence: ${data.confidence}
 
 
 /* =========================================================
-   🚨 KEYWORD DETECTION (UPLOAD + LIVE RECORDING)
+   🚨 KEYWORD DETECTION
    ========================================================= */
 
 let mediaRecorder;
 let audioChunks = [];
 
-/* -------- START RECORDING -------- */
 function startRecording() {
   audioChunks = [];
 
@@ -138,8 +131,6 @@ function startRecording() {
     });
 }
 
-
-/* -------- STOP RECORDING -------- */
 function stopRecording() {
   if (!mediaRecorder) return;
 
@@ -154,8 +145,6 @@ function stopRecording() {
   };
 }
 
-
-/* -------- FILE UPLOAD -------- */
 function detectEmergency() {
   const fileInput = document.getElementById("emergencyAudio");
 
@@ -167,8 +156,6 @@ function detectEmergency() {
   sendEmergencyAudio(fileInput.files[0]);
 }
 
-
-/* -------- COMMON BACKEND CALL -------- */
 function sendEmergencyAudio(audioBlob) {
   const status = document.getElementById("emergencyStatus");
   const result = document.getElementById("emergencyResult");
@@ -179,7 +166,7 @@ function sendEmergencyAudio(audioBlob) {
   const formData = new FormData();
   formData.append("file", audioBlob);
 
-  fetch("https://55e72364-cab3-4738-baa7-5890a2f8cac3-00-tynd123jibysc.pike.replit.dev/keyword/predict-audio", {
+  fetch(`${BASE_URL}/keyword/predict-audio`, {
     method: "POST",
     body: formData
   })
@@ -199,14 +186,14 @@ function sendEmergencyAudio(audioBlob) {
     });
 }
 
+
 /* =========================================================
-   🗣 ABUSIVE DETECTION (UPLOAD + LIVE RECORDING)
+   🗣 ABUSIVE DETECTION
    ========================================================= */
 
 let abuseRecorder;
 let abuseChunks = [];
 
-/* -------- START RECORDING -------- */
 function startAbuseRecording() {
   abuseChunks = [];
 
@@ -227,8 +214,6 @@ function startAbuseRecording() {
     });
 }
 
-
-/* -------- STOP RECORDING -------- */
 function stopAbuseRecording() {
   if (!abuseRecorder) return;
 
@@ -243,8 +228,6 @@ function stopAbuseRecording() {
   };
 }
 
-
-/* -------- FILE UPLOAD -------- */
 function detectAbuse() {
   const fileInput = document.getElementById("abuseAudio");
 
@@ -256,8 +239,6 @@ function detectAbuse() {
   sendAbuseAudio(fileInput.files[0]);
 }
 
-
-/* -------- COMMON BACKEND CALL -------- */
 function sendAbuseAudio(audioBlob) {
   const status = document.getElementById("abuseStatus");
   const result = document.getElementById("abuseResult");
@@ -268,15 +249,13 @@ function sendAbuseAudio(audioBlob) {
   const formData = new FormData();
   formData.append("file", audioBlob);
 
-  fetch("https://55e72364-cab3-4738-baa7-5890a2f8cac3-00-tynd123jibysc.pike.replit.dev/abuse/predict-audio", {
+  fetch(`${BASE_URL}/abuse/predict-audio`, {
     method: "POST",
     body: formData
   })
     .then(res => res.json())
     .then(data => {
       status.innerText = "Status: Done";
-
-      console.log("ABUSE API:", data);
 
       const text = data.recognized_text || "N/A";
       const prediction = data.result || "N/A";
@@ -289,6 +268,7 @@ function sendAbuseAudio(audioBlob) {
       result.innerText = "❌ Backend not reachable";
     });
 }
+
 
 /* =========================================================
    SCROLL ANIMATION
