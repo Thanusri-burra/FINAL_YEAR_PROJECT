@@ -6,10 +6,7 @@ __pycache__/
 venv/
 .env
 
-# ML models & large files
-*.pth
-*.pt
-*.h5
+
 
 # Videos & images (datasets)
 *.mp4
@@ -29,8 +26,8 @@ Thumbs.db
 __pycache__/
 *.pyc
 
-# ML models
-*.pkl
+
+
 
 # Audio files
 *.wav
@@ -46,8 +43,8 @@ backend/keyword_detection_backend/test_train_model/
 # Audio files
 *.wav
 
-# ML models
-*.pkl
+
+
 
 # Python cache
 __pycache__/
