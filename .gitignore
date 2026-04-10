@@ -1,0 +1,58 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.env
+
+# ML models & large files
+*.pth
+*.pt
+*.h5
+
+# Videos & images (datasets)
+*.mp4
+*.avi
+*.mov
+*.jpg
+*.png
+
+# Temporary folders
+temp_videos/
+uploads/
+
+# OS files
+.DS_Store
+Thumbs.db
+# Python
+__pycache__/
+*.pyc
+
+# ML models
+*.pkl
+
+# Audio files
+*.wav
+*.webm
+
+# Temp files
+temp*
+backend/keyword_detection_backend/temp*
+
+# Datasets
+backend/campus_guard_audio*
+backend/keyword_detection_backend/test_train_model/
+# Audio files
+*.wav
+
+# ML models
+*.pkl
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+.env
