@@ -21,8 +21,6 @@ app.add_middleware(
 # INCLUDE ALL ROUTERS
 app.include_router(lost_found_router)
 app.include_router(keyword_router)
-
-# ✅ ADD THIS
 app.include_router(abusive_router, prefix="/abuse", tags=["Abuse Detection"])
 app.include_router(violence_router)
 

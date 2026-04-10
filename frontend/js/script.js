@@ -26,7 +26,7 @@ async function findLostItem(event, btn) {
 
   try {
     const response = await fetch(
-      "http://127.0.0.1:8000/lost-found/analyze",
+      "https://55e72364-cab3-4738-baa7-5890a2f8cac3-00-tynd123jibysc.pike.replit.dev/lost-found/analyze",
       {
         method: "POST",
         body: formData
@@ -71,7 +71,7 @@ function detectViolence() {
 
   result.innerHTML = "⏳ <b>Analyzing video...</b>";
 
-  fetch("http://127.0.0.1:8000/violence/predict", {
+  fetch("https://55e72364-cab3-4738-baa7-5890a2f8cac3-00-tynd123jibysc.pike.replit.dev/violence/predict", {
     method: "POST",
     body: formData
   })
@@ -179,7 +179,7 @@ function sendEmergencyAudio(audioBlob) {
   const formData = new FormData();
   formData.append("file", audioBlob);
 
-  fetch("http://127.0.0.1:8000/keyword/predict-audio", {
+  fetch("https://55e72364-cab3-4738-baa7-5890a2f8cac3-00-tynd123jibysc.pike.replit.dev/keyword/predict-audio", {
     method: "POST",
     body: formData
   })
@@ -268,7 +268,7 @@ function sendAbuseAudio(audioBlob) {
   const formData = new FormData();
   formData.append("file", audioBlob);
 
-  fetch("http://127.0.0.1:8000/abuse/predict-audio", {
+  fetch("https://55e72364-cab3-4738-baa7-5890a2f8cac3-00-tynd123jibysc.pike.replit.dev/abuse/predict-audio", {
     method: "POST",
     body: formData
   })
